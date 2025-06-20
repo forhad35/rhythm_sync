@@ -39,29 +39,49 @@ Ensure these are placed in `assets/fonts/` and declared in `pubspec.yaml`.
 ## 📁 Project Structure (Clean Architecture)
 
 ```
-lib/
+lib
+├── common_widgets
+├── constants
+│   └── route
+│       ├── app_routes.dart
+│       └── page_route.dart
+├── features
+│   ├── alarm
+│   │   ├── controller
+│   │   │   └── alarm_controller.dart
+│   │   ├── model
+│   │   │   ├── alarm_model.dart
+│   │   │   └── alarm_model.g.dart
+│   │   └── service
+│   │       └── alarm_service.dart
+│   ├── home
+│   │   └── view
+│   │       └── home_screen.dart
+│   ├── location
+│   │   └── view
+│   │       └── location_screen.dart
+│   └── onboarding
+│       ├── controller
+│       │   └── onboarding_controller.dart
+│       ├── model
+│       │   └── onboarding_model.dart
+│       └── view
+│           └── onboarding_screen.dart
+├── generated
+│   └── assets.dart
+├── helpers
 ├── main.dart
-├── constants/
-├── common_widgets/
-├── helpers/
-├── networks/
-├── services/
-├── features/
-│   └── alarm/
-│       ├── controller/
-│       ├── model/
-│       ├── service/
-│       └── view/
+└── networks
+    └── get_current_location.dart
+
 ```
 
 ---
 
-## 📸 Screenshots *(Optional)*
+## 📸 Screenshots 
 
-| Onboarding | Location Access | Alarm List |
-|------------|------------------|-------------|
-| ![1](assets/screens/onboarding.png) | ![2](assets/screens/location.png) | ![3](assets/screens/alarm.png) |
-
+| Onboarding , Location Access, Alarm List |
+| !([https://github.com/forhad35/rhythm_sync/blob/main/assets/ProjectScreenshot%20.png]) | 
 ---
 
 ## 🚀 Getting Started
@@ -114,6 +134,4 @@ Also ensure `app_icon.png` is placed in `android/app/src/main/res/drawable/`.
 
 ---
 
-## 📄 License
 
-This project is licensed under the MIT License.
