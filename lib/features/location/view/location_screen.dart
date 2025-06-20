@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import '../../../networks/get_current_location.dart';
 
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Scaffold(
       backgroundColor: const Color(0xFF1C1C1E), // Dark background
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 60),
               const Text(
                 "Welcome! Your\nPersonalized Alarm",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.white,
@@ -27,31 +31,31 @@ class LocationScreen extends StatelessWidget {
               const SizedBox(height: 12),
               const Text(
                 "Allow us to sync your sunset alarm\nbased on your location.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
-                ),
+                textAlign: TextAlign.start,
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               const SizedBox(height: 40),
               ClipOval(
                 child: Image.asset(
                   'assets/images/morning2.png',
-                  height: 200,
-                  width: 200,
+                  height: MediaQuery.sizeOf(context).height*0.3,
+                  width: MediaQuery.sizeOf(context).width*0.3,
                   fit: BoxFit.cover,
                 ),
               ),
               const Spacer(),
               ElevatedButton.icon(
-                onPressed: () {
-                  // Call permission and location fetch logic here
-                  Get.snackbar("Location", "Fetching current location...");
+                onPressed: ()async {
+                   determinePosition().then((address){
+                     Get.toNamed("/home",arguments:address);
+
+                   });
                 },
-                icon: const Icon(Icons.my_location),
-                label: const Text("Use Current Location"),
+                label: const Text("Use Current Location",style: TextStyle(fontSize: 15),),
+                icon: Image.asset("assets/icons/location-05.png",width: 20,),
+                iconAlignment: IconAlignment.end,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[800],
+                  backgroundColor: Color(0xFF4D4D4D),
                   foregroundColor: Colors.white,
                   minimumSize: const Size(double.infinity, 48),
                   shape: RoundedRectangleBorder(
@@ -60,13 +64,13 @@ class LocationScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              OutlinedButton(
+              ElevatedButton(
                 onPressed: () {
-                  Get.toNamed("/home");
+                  // Get.toNamed("/home");
                 },
-                style: OutlinedButton.styleFrom(
+                style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  side: BorderSide(color: Colors.grey.shade600),
+                  backgroundColor: Color(0xFF4D4D4D),
                   minimumSize: const Size(double.infinity, 48),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),

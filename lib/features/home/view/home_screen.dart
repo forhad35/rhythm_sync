@@ -1,113 +1,148 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-
+import '../../alarm/controller/alarm_controller.dart';
+import 'package:intl/intl.dart';
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
+   HomeScreen({super.key});
+  var address = Get.arguments;
+   final AlarmController controller = Get.put(AlarmController());
+   @override
   Widget build(BuildContext context) {
-    final alarms = [
-      {'time': '7:10 pm', 'date': 'Fri 21 Mar 2025', 'enabled': true},
-      {'time': '6:55 pm', 'date': 'Fri 28 Mar 2025', 'enabled': false},
-      {'time': '7:00 pm', 'date': 'Apr 04 Mar 2025', 'enabled': true},
-    ];
 
     return Scaffold(
       backgroundColor: const Color(0xFF1C1C1E),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text("Selected Location"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: const [
-                Icon(Icons.location_on, color: Colors.white70),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    "79 Regent’s Park Rd, London\nNW1 8UY, United Kingdom",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Add Alarm picker popup or page navigation
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[800],
-                foregroundColor: Colors.white,
-                minimumSize: const Size(double.infinity, 48),
+appBar: AppBar(
+  backgroundColor: Colors.transparent,
+  leading: Text(""),
+),
+      body: Center(
+        child: SizedBox(
+          width: MediaQuery.sizeOf(context).width*0.93,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width*0.08),
+                width: MediaQuery.sizeOf(context).width*0.9,
+                child: _addressAddAlarm(context),
               ),
-              child: const Text("Add Alarm"),
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              "Alarms",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-            const SizedBox(height: 12),
-            Expanded(
-              child: ListView.separated(
-                itemCount: alarms.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
-                itemBuilder: (context, index) {
-                  final alarm = alarms[index];
-                  return Container(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[850],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          alarm['time']!.toString(),
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
+              const SizedBox(height: 24),
+              const Text(
+                "Alarms",
+                style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
+              Obx(()=>
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.alarms.length,
+                    itemBuilder: (context, index) {
+                      final alarm = controller.alarms[index];
+
+                      String date = DateFormat('EEE dd MMM yyyy').format(alarm.time);
+
+                      String time = DateFormat('hh:mm a').format(alarm.time);
+                      return Container(
+                        width: MediaQuery.sizeOf(context).width *0.95,
+                        height: 70,
+                        padding: const EdgeInsets.all(16),
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF3C3D3F),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        const Spacer(),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              alarm['date']!.toString(),
+                              time,
                               style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white70,
+                                fontSize: 17,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400
                               ),
                             ),
-                            Switch(
-                              value: alarm['enabled']! as bool,
-                              onChanged: (val) {
-                                // enable/disable alarm logic
-                              },
-                              activeColor: Colors.purple,
-                            ),
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width*0.48,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    date,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5,),
+                                  SizedBox(width: 50,
+                                    child:
+                                      FlutterSwitch(
+                                        value: alarm.enabled,
+                                        onToggle: (val) => controller.toggleAlarm(index, val),
+                                        width:35,
+                                        height:20,
+                                        toggleSize:12,
+                                        activeColor: Color(0xFF7B4CDF),
+                                        inactiveTextColor: Colors.grey.shade400,
+
+
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
-                        )
-                      ],
-                    ),
-                  );
-                },
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+
   }
+  _addressAddAlarm(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+      Text("Selected Location",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+      SizedBox.fromSize(size: Size(0, 15),),
+      Row(
+        children:  [
+          Image.asset("assets/icons/location-01.png"),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              "$address",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: 16),
+      ElevatedButton(
+      onPressed: () => controller.pickDateTime(context),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFF3C3D3F),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10), // Adjust the value as needed
+          ),
+          minimumSize: const Size(double.infinity, 48),
+        ),
+        child: const Text("Add Alarm"),
+      ),
+    ]);
+  }
+
 }

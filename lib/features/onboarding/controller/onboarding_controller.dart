@@ -7,11 +7,6 @@ class OnboardingController extends GetxController {
   void updatePage(int index) {
     currentPage.value = index;
   }
-
-  void skip() {
-    Get.offAllNamed(AppRoutes.location); // Navigate to location screen
-  }
-
   void nextOrFinish() {
     if (currentPage.value < 2) {
       currentPage.value++;
@@ -19,4 +14,9 @@ class OnboardingController extends GetxController {
       skip(); // Last page → go to location
     }
   }
+  void skip() {
+    Get.offAllNamed(AppRoutes.location); // Navigate to location screen
+  }
+
+
 }

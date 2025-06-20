@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
+  # The following adds the Cupertino Icons fonts to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   get: ^4.7.2
@@ -41,16 +41,17 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   shared_preferences: ^2.5.3
+  geocoding: ^4.0.0
+  flutter_switch: ^0.3.2
+  android_alarm_manager_plus: ^4.0.7
+  timezone: ^0.10.1
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
+  build_runner: ^2.4.8
+  hive_generator: ^2.0.1
   flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
@@ -59,7 +60,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
-  # The following line ensures that the Material Icons font is
+  # The following line ensures that the Material Icons fonts is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
@@ -77,20 +78,20 @@ flutter:
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
+  # "family" key with the fonts family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the fonts. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+     - family: Oxygen
+       fonts:
+         - asset: assets/fonts/Oxygen-Regular.ttf
+         - asset: assets/fonts/Oxygen-Bold.ttf
+         - asset: assets/fonts/Oxygen-Light.ttf
+     - family: Poppins
+       fonts:
+         - asset: assets/fonts/Poppins-Bold.ttf
+         - asset: assets/fonts/Poppins-Regular.ttf
+         - asset: assets/fonts/Poppins-Light.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

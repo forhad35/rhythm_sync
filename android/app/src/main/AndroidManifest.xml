@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:label="rhythm_sync"
         android:name="${applicationName}"
@@ -30,6 +33,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" android:exported="true"/>
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" android:exported="true"/>
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

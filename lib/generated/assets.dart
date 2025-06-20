@@ -2,6 +2,13 @@
 class Assets {
   Assets._();
 
+  static const String fontOxygenBold = 'assets/fonts/Oxygen-Bold.ttf';
+  static const String fontOxygenLight = 'assets/fonts/Oxygen-Light.ttf';
+  static const String fontOxygenRegular = 'assets/fonts/Oxygen-Regular.ttf';
+  static const String fontPoppinsBold = 'assets/fonts/Poppins-Bold.ttf';
+  static const String fontPoppinsLight = 'assets/fonts/Poppins-Light.ttf';
+  static const String fontPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
+  static const String iconsLocation01 = 'assets/icons/location-01.png';
   static const String iconsLocation05 = 'assets/icons/location-05.png';
   static const String imagesMorning2 = 'assets/images/morning2.png';
   static const String imagesOnboarding1 = 'assets/images/onboarding1.gif';
